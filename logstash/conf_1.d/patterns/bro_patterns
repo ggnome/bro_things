@@ -1,0 +1,19 @@
+BRO_CONN (?<ts>(.*?))\t(?<uid>(.*?))\t(?<id_orig_h>(.*?))\t(?<id_orig_p>(.*?))\t(?<id_resp_h>(.*?))\t(?<id_resp_p>(.*?))\t(?<proto>(.*?))\t(?<service>(.*?))\t(?<duration>(.*?))\t(?<orig_bytes>(.*?))\t(?<resp_bytes>(.*?))\t(?<conn_state>(.*?))\t(?<local_orig>(.*?))\t(?<missed_bytes>(.*?))\t(?<history>(.*?))\t(?<orig_pkts>(.*?))\t(?<orig_ip_bytes>(.*?))\t(?<resp_pkts>(.*?))\t(?<resp_ip_bytes>(.*?))\t(?<tunnel_parents>(.*))
+
+BRO_DHCP (?<ts>(.*?))\t(?<uid>(.*?))\t(?<id_orig_h>(.*?))\t(?<id_orig_p>(.*?))\t(?<id_resp_h>(.*?))\t(?<id_resp_p>(.*?))\t(?<mac>(.*?))\t(?<assigned_ip>(.*?))\t(?<lease_time>(.*?))\t(?<trans_id>(.*))
+
+BRO_DNS (?<ts>(.*?))\t(?<uid>(.*?))\t(?<id_orig_h>(.*?))\t(?<id_orig_p>(.*?))\t(?<id_resp_h>(.*?))\t(?<id_resp_p>(.*?))\t(?<proto>(.*?))\t(?<trans_id>(.*?))\t(?<query>(.*?))\t(?<qclass>(.*?))\t(?<qclass_name>(.*?))\t(?<qtype>(.*?))\t(?<qtype_name>(.*?))\t(?<rcode>(.*?))\t(?<rcode_name>(.*?))\t(?<AA>(.*?))\t(?<TC>(.*?))\t(?<RD>(.*?))\t(?<RA>(.*?))\t(?<Z>(.*?))\t(?<answers>(.*?))\t(?<TTLs>(.*?))\t(?<rejected>(.*))
+
+BRO_FILES (?<ts>(.*?))\t(?<uid>(.*?))\t(?<tx_hosts>(.*?))\t(?<rx_hosts>(.*?))\t(?<conn_uids>(.*?))\t(?<source>(.*?))\t(?<depth>(.*?))\t(?<analyzers>(.*?))\t(?<mime_type>(.*?))\t(?<filename>(.*?))\t(?<duration>(.*?))\t(?<local_orig>(.*?))\t(?<is_orig>(.*?))\t(?<seen_bytes>(.*?))\t(?<total_bytes>(.*?))\t(?<missing_bytes>(.*?))\t(?<overflow_bytes>(.*?))\t(?<timedout>(.*?))\t(?<parent_fuid>(.*?))\t(?<md5>(.*?))\t(?<sha1>(.*?))\t(?<sha256>(.*?))\t(?<extracted>(.*))
+
+BRO_HTTP (?<ts>(.*?))\t(?<uid>(.*?))\t(?<id_orig_h>(.*?))\t(?<id_orig_p>(.*?))\t(?<id_resp_h>(.*?))\t(?<id_resp_p>(.*?))\t(?<trans_depth>(.*?))\t(?<method>(.*?))\t(?<host>(.*?))\t(?<uri>(.*?))\t(?<referrer>(.*?))\t(?<user_agent>(.*?))\t(?<request_body_len>(.*?))\t(?<response_body_len>(.*?))\t(?<status_code>(.*?))\t(?<status_msg>(.*?))\t(?<info_code>(.*?))\t(?<info_msg>(.*?))\t(?<filename>(.*?))\t(?<tags>(.*?))\t(?<username>(.*?))\t(?<password>(.*?))\t(?<proxied>(.*?))\t(?<orig_fuids>(.*?))\t(?<orig_mime_types>(.*?))\t(?<resp_fuids>(.*?))\t(?<resp_mime_types>(.*))
+
+BRO_NOTICE (?<ts>(.*?))\t(?<uid>(.*?))\t(?<id_orig_h>(.*?))\t(?<id_orig_p>(.*?))\t(?<id_resp_h>(.*?))\t(?<id_resp_p>(.*?))\t(?<fuid>(.*?))\t(?<file_mime_type>(.*?))\t(?<file_desc>(.*?))\t(?<proto>(.*?))\t(?<note>(.*?))\t(?<msg>(.*?))\t(?<sub>(.*?))\t(?<src>(.*?))\t(?<dst>(.*?))\t(?<p>(.*?))\t(?<n>(.*?))\t(?<peer_descr>(.*?))\t(?<actions>(.*?))\t(?<suppress_for>(.*?))\t(?<dropped>(.*?))\t(?<remote_location.country_code>(.*?))\t(?<remote_location.region>(.*?))\t(?<remote_location.city>(.*?))\t(?<remote_location.latitude>(.*?))\t(?<remote_location.longitude>(.*))
+
+BRO_SSH (?<ts>(.*?))\t(?<uid>(.*?))\t(?<id_orig_h>(.*?))\t(?<id_orig_p>(.*?))\t(?<id_resp_h>(.*?))\t(?<id_resp_p>(.*?))\t(?<status>(.*?))\t(?<direction>(.*?))\t(?<client>(.*?))\t(?<server>(.*?))\t(?<remote_location.country_code>(.*?))\t(?<remote_location.region>(.*?))\t(?<remote_location.city>(.*?))\t(?<remote_location.latitude>(.*?))\t(?<remote_location.longitude>(.*))
+
+BRO_SSL (?<ts>(.*?))\t(?<uid>(.*?))\t(?<id_orig_h>(.*?))\t(?<id_orig_p>(.*?))\t(?<id_resp_h>(.*?))\t(?<id_resp_p>(.*?))\t(?<version>(.*?))\t(?<cipher>(.*?))\t(?<server_name>(.*?))\t(?<session_id>(.*?))\t(?<subject>(.*?))\t(?<issuer_subject>(.*?))\t(?<not_valid_before>(.*?))\t(?<not_valid_after>(.*?))\t(?<last_alert>(.*?))\t(?<client_subject>(.*?))\t(?<client_issuer_subject>(.*?))\t(?<cert_hash>(.*?))\t(?<validation_status>(.*))
+
+BRO_WEIRD (?<ts>(.*?))\t(?<uid>(.*?))\t(?<id_orig_h>(.*?))\t(?<id_orig_p>(.*?))\t(?<id_resp_h>(.*?))\t(?<id_resp_p>(.*?))\t(?<name>(.*?))\t(?<addl>(.*?))\t(?<notice>(.*?))\t(?<peer>(.*))
+
+BRO_CONN_ARC (?<ts>(.*?))\t(?<uid>(.*?))\t(?<id_orig_h>(.*?))\t(?<id_orig_p>(.*?))\t(?<id_resp_h>(.*?))\t(?<id_resp_p>(.*?))\t(?<proto>(.*?))\t

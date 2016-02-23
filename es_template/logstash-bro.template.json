@@ -1,0 +1,459 @@
+{
+  "template": "bro-*",
+  "order": 2,
+  "settings": {
+    "index.refresh_interval": "5s"
+  },
+  "mappings": {
+    "_default_": {
+      "_all": {
+        "enabled": true,
+        "omit_norms": true
+      },
+      "dynamic_templates": [
+        {
+          "message_field": {
+            "match": "message",
+            "match_mapping_type": "string",
+            "mapping": {
+              "type": "string",
+              "index": "analyzed",
+              "omit_norms": true,
+              "fielddata": {
+                "format": "disabled"
+              }
+            }
+          }
+        },
+        {
+          "string_fields": {
+            "match": "*",
+            "match_mapping_type": "string",
+            "mapping": {
+              "type": "string",
+              "index": "not_analyzed",
+              "doc_values": true,
+              "omit_norms": true,
+              "fielddata": {
+                "format": "disabled"
+              }
+            }
+          }
+        },
+        {
+          "float_fields": {
+            "match": "*",
+            "match_mapping_type": "float",
+            "mapping": {
+              "type": "float",
+              "doc_values": true
+            }
+          }
+        },
+        {
+          "double_fields": {
+            "match": "*",
+            "match_mapping_type": "double",
+            "mapping": {
+              "type": "double",
+              "doc_values": true
+            }
+          }
+        },
+        {
+          "byte_fields": {
+            "match": "*",
+            "match_mapping_type": "byte",
+            "mapping": {
+              "type": "byte",
+              "doc_values": true
+            }
+          }
+        },
+        {
+          "short_fields": {
+            "match": "*",
+            "match_mapping_type": "short",
+            "mapping": {
+              "type": "short",
+              "doc_values": true
+            }
+          }
+        },
+        {
+          "integer_fields": {
+            "match": "*",
+            "match_mapping_type": "integer",
+            "mapping": {
+              "type": "integer",
+              "doc_values": true
+            }
+          }
+        },
+        {
+          "long_fields": {
+            "match": "*",
+            "match_mapping_type": "long",
+            "mapping": {
+              "type": "long",
+              "doc_values": true
+            }
+          }
+        },
+        {
+          "date_fields": {
+            "match": "*",
+            "match_mapping_type": "date",
+            "mapping": {
+              "type": "date",
+              "format": "strict_date_optional_time||epoch_millis",
+              "doc_values": true
+            }
+          }
+        },
+        {
+          "geo_point_fields": {
+            "match": "*",
+            "match_mapping_type": "geo_point",
+            "mapping": {
+              "type": "geo_point",
+              "doc_values": true
+            }
+          }
+        },
+        {
+          "uid_fields": {
+            "match" : "*uid",
+            "mapping" : {
+              "type": "string",
+              "index" : "not_analyzed",
+              "doc_values" : true
+            }
+          }
+        },
+        {
+          "ip_fields" : {
+            "match" : "*",
+            "match_mapping_type" : "ip",
+            "mapping" : {
+              "type" : "ip",
+              "doc_values" : true,
+              "omit_norms" : true,
+              "fielddata" : {
+                "format" : "enabled"
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date",
+          "format": "basic_date||strict_date_optional_time||epoch_millis",
+          "doc_values": true
+        },
+        "@version": {
+          "type": "string",
+          "index": "not_analyzed",
+          "doc_values": true
+        },
+        "geoip": {
+          "type": "object",
+          "dynamic": true,
+          "properties": {
+            "ip": {
+              "type": "ip",
+              "doc_values": true
+            },
+            "location": {
+              "type": "geo_point",
+              "doc_values": true
+            },
+            "latitude": {
+              "type": "float",
+              "doc_values": true
+            },
+            "longitude": {
+              "type": "float",
+              "doc_values": true
+            }
+          }
+        },
+        "host": {
+          "type": "ip",
+          "doc_values": true
+        }
+      }
+    },
+    "bro_log": {
+      "dynamic" : "true",
+      "dynamic_templates": [
+        {
+          "cmnFd_ip": {
+            "match_pattern" : "regex",
+            "match": ".*_h4$|.*_ip4$",
+            "unmatch" : "san*",
+            "mapping": {
+              "type": "ip"
+            }
+          }
+        },
+        {
+          "cmnFd_port": {
+            "match": "*_p",
+            "mapping": {
+              "type": "long",
+              "omit_norms": true,
+              "fielddata": {
+                "format": "disabled"
+              }
+            }
+          }
+        },
+        {
+          "cmnFd_date" : {
+            "match_pattern" : "regex",
+            "match" : "ts|.*before|.*after",
+            "mapping" : {
+              "type" : "date"
+            }
+          }
+        },
+        {
+          "x509_str_anlyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "cert_chain_fuids|certificate_issuer|certificate_exponent|certificate_subject",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "x509_vec_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "san.*",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "ssh_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "client|server",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "ssl_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "cipher|server_name|.*subject|.*issuer",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "ssl_vec_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "cert.*|clent.*",
+            "unmatch_patter": ".*subject|.*issuer",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "dpd_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "failure_reason",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "notice_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "peer_descr|sub|msg|note",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "notice_vec_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "actions",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "software_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "name|unparsed_version|url",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "snmp_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" :
+              "subject|mailfrom",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "snmp_vec_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "rcptto|to|paths|fuids",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "reporter_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "message|location",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "conn_vec_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "tunnel_parents",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "weird_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "name|addl|peer",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "files_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "source|mime_type|filename|parent_fuid|extracted",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "files_vec_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              ".*hosts|conn_uids|analyzers",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "commun_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "message|peer|src_name",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "http_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              ".*msg|filename|referrer",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "http_vec_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              ".*types|.*names|.*fuids|.*vars|tags|proxied",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "dns_str_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              ".*_name",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        },
+        {
+          "dns_vec_analyzed" : {
+            "match_pattern" : "regex",
+            "match" : 
+              "TTLs|answers|auth|addl",
+            "mapping" : {
+              "type" : "string",
+              "index" : "analyzed"
+            }
+          }
+        }
+      ],
+      "properties": {
+      }
+    }
+  }
+}
